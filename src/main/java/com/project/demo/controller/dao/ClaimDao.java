@@ -20,5 +20,5 @@ public interface ClaimDao extends JpaRepository<Claim, Long> {
     List<Claim> findAll();
 
     @Query("select a from Claim  a where a.webClaimNo=:webClaimNo")
-   Claim  findAllByWebClaimNo(long webClaimNo);
+    Claim findAllByWebClaimNo(long webClaimNo);
 }

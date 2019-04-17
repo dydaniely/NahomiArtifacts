@@ -11,7 +11,7 @@ import java.time.LocalDate;
  * @author isddyt
  * 4/17/2019
  */
-@Data
+
 @Getter
 @Setter
 @AllArgsConstructor

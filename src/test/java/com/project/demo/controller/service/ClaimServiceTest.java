@@ -21,8 +21,8 @@ import static org.mockito.Mockito.when;
  * 4/16/2019
  */
 
-@RunWith(SpringRunner.class)
-@SpringBootTest
+//@RunWith(SpringRunner.class)
+//@SpringBootTest
 public class ClaimServiceTest {
     private ClaimDao claimMockDao = mock(ClaimDao.class);
     private ClaimService claimService;
@@ -32,7 +32,7 @@ public class ClaimServiceTest {
         claimService = new ClaimService(claimMockDao);
     }
 
-    @Test
+//    @Test
     public void getAllClaimsPositive() {
         Claim claim = new Claim(399, "022019002343", new Date(), "Hail", "Water ", new Date());
         Claim claim1 = new Claim(398, "022019002344", new Date(), "Hail", "Water ", new Date());
@@ -45,7 +45,7 @@ public class ClaimServiceTest {
 
     }
 
-    @Test
+//    @Test
     public void getClaimsByWebIdPositive() {
         long webClaimNo = 399;
         Claim claim = new Claim(399, "022019002343", new Date(), "Hail", "Water ", new Date());

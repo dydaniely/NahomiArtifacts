@@ -1,10 +1,12 @@
 package com.project.demo.controller;
 
+
 import com.project.demo.controller.service.BookUploadServiceImplementation;
 import com.project.demo.controller.service.ClaimService;
-import com.project.demo.model.Claim;
-import com.project.demo.model.ClaimsDocument;
+import com.project.demo.controller.service.MetaDataServiceImpl;
+import com.project.demo.model.MetaData;
 import fi.solita.clamav.ClamAVClient;
+import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,9 +15,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
+import java.time.LocalDate;
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -26,16 +27,17 @@ import java.util.Map;
 @RestController
 @RequestMapping("/")
 public class FileUploadController {
-    private Logger log = LogManager.getLogger(FileUploadController.class);
+    static Logger log = LogManager.getLogger(FileUploadController.class);
     private ClaimService claimService;
     private BookUploadServiceImplementation bookUploadServiceImplementation;
+    private MetaDataServiceImpl metaDataService;
 
     @Autowired
-    public FileUploadController(ClaimService claimService,BookUploadServiceImplementation bookUploadServiceImplementation) {
+    public FileUploadController(ClaimService claimService, BookUploadServiceImplementation bookUploadServiceImplementation, MetaDataServiceImpl metaDataService) {
         this.claimService = claimService;
-        this.bookUploadServiceImplementation=bookUploadServiceImplementation;
+        this.bookUploadServiceImplementation = bookUploadServiceImplementation;
+        this.metaDataService = metaDataService;
     }
-
 
     @PostMapping("/uploadFiles")
     public HttpStatus submitClaim(@RequestPart(value = "files", required = false) MultipartFile files) throws Exception {
@@ -54,35 +56,18 @@ public class FileUploadController {
     }
 
     @GetMapping("/scanBackLogs")
-    public HttpStatus scanFiles() {
-        List<Claim> claims = claimService.getAllClaims();
-        ClamAVClient cl = new ClamAVClient("10.100.1.111", 3310);
-        List<String> errorFiles = new ArrayList<>();
-        for (Claim claim : claims) {
-            for (ClaimsDocument claimsDocument : claim.getClaimsDocumentList()) {
-                log.info("scanning file :" + claimsDocument.getFileName());
-                try {
-                    cl.scan(claimsDocument.getDocument());
-                } catch (IOException e) {
-                    log.info("could not scan :" + claimsDocument.getFileName());
-                    errorFiles.add(claimsDocument.getFileName());
-                }
-            }
-        }
-        if (errorFiles.isEmpty()) {
-            return HttpStatus.OK;
-        } else {
-            System.out.println("Errors");
-            errorFiles.forEach(System.out::println);
-            return HttpStatus.CONFLICT;
-        }
-    }
 
 
     @PostMapping("/uploadBooks")
-    public HttpStatus uploadBooks(@RequestPart (value = "file") MultipartFile file){
-        this.bookUploadServiceImplementation.uploadToBooksBucket(file,true);
-        return HttpStatus.OK;
+    public ResponseEntity<Map<String, String>> uploadBooks(@RequestPart(value = "file") MultipartFile file) {
+        //store Image
+        this.bookUploadServiceImplementation.uploadToBooksBucket(file, true);
+        MetaData metaData = new MetaData(RandomStringUtils.randomAlphanumeric(10).toUpperCase(), LocalDate.now(), LocalDate.now().plusDays(3), true);
+        //Save Book properties
+        metaDataService.placeMetaData(metaData);
+        Map<String, String> value = new HashMap<>();
+        value.put(metaData.getReferenceKey(), "Data Saved ");
+        return new ResponseEntity<>(value, HttpStatus.OK);
     }
-
 }
+

@@ -1,25 +1,22 @@
 package com.project.demo.model;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.OneToMany;
 import java.time.LocalDate;
-import java.util.List;
-
 /**
  * @author isddyt
  * 4/17/2019
  */
-@Data
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
 public class Book {
-
     long id;
     String isbn;
     String title;
@@ -29,5 +26,4 @@ public class Book {
     LocalDate modOn;
     double price;
     String fileName;
-
 }
