@@ -1,13 +1,9 @@
-package com.project.demo.controller.service;
+package com.project.micro.controller.service;
 
-import com.project.demo.controller.dao.ClaimDao;
-import com.project.demo.model.Claim;
+import com.project.micro.controller.dao.ClaimDao;
+import com.project.micro.model.Claim;
 import org.junit.Assert;
 import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.ArrayList;
 import java.util.Date;

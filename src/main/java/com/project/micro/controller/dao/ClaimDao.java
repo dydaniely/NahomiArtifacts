@@ -1,6 +1,6 @@
-package com.project.demo.controller.dao;
+package com.project.micro.controller.dao;
 
-import com.project.demo.model.Claim;
+import com.project.micro.model.Claim;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;

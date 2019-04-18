@@ -1,22 +1,21 @@
-package com.project.demo.model;
+package com.project.micro.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-
+import lombok.*;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import java.time.LocalDate;
+import java.util.List;
+
 /**
  * @author isddyt
  * 4/17/2019
  */
-@Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
+@Data
 @Entity
-public class Book {
+public class Document {
+    @Id
+    @GeneratedValue
     long id;
     String isbn;
     String title;
@@ -25,5 +24,7 @@ public class Book {
     LocalDate yearPublished;
     LocalDate modOn;
     double price;
-    String fileName;
+    byte[] fileName;
+    String keys;
+
 }

@@ -1,4 +1,4 @@
-package com.project.demo.model;
+package com.project.micro.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -173,8 +173,6 @@ public class Claim extends ResourceSupport implements Serializable {
     public void setStatus(String status) {
         this.status = status;
     }
-
-
 
     public Date getModOn() {
         return modOn;

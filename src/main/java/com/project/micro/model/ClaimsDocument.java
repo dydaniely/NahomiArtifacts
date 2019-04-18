@@ -1,10 +1,9 @@
-package com.project.demo.model;
+package com.project.micro.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import org.springframework.hateoas.ResourceSupport;
-
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;

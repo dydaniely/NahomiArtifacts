@@ -1,4 +1,4 @@
-package com.project.demo.model;
+package com.project.micro.model;
 
 import com.amazonaws.auth.AWSCredentialsProvider;
 import com.amazonaws.auth.AWSStaticCredentialsProvider;
