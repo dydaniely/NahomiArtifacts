@@ -43,7 +43,7 @@ public class DocumentUploadServiceImplementation implements DocumentUploadServic
 
     @Async
     public void uploadToBooksBucket(MultipartFile multipartFile, boolean enablePublicReadAccess) {
-        logger.debug("Update started here ...aa");
+        logger.debug("Upload documents to Buckets");
         String filename = multipartFile.getOriginalFilename();
         assert filename != null;
         File file = new File(filename);
