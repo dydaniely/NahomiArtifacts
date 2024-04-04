@@ -45,6 +45,7 @@ public class FileUploadController {
 
     @PostMapping("/uploadFiles")
     public HttpStatus submitClaim(@RequestPart(value = "files", required = false) MultipartFile files) throws Exception {
+        log.debug("Files uploads start here");
         documentUploadServiceImplementation.scan(files);
         return HttpStatus.OK;
     }
